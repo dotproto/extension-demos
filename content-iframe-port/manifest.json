@@ -1,0 +1,17 @@
+{
+  "name": "Content script & iframe messaging port",
+  "version": "2.0",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+  "web_accessible_resources": [{
+    "matches": ["*://*.example.com/*"],
+    "resources": ["iframe.html"]
+  }],
+  "content_scripts": [{
+    "matches": ["*://*.example.com/*"],
+    "js": ["lib/log.js", "content.js"]
+  }],
+  "action": {}
+}
