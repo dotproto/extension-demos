@@ -95,6 +95,27 @@ async function updateRelaxationIframeRules() {
   });
 }
 
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.type === "toggle-rules") {
+    (async () => {
+      await toggleRelaxationRules();
+      sendResponse({type: "toggle-complete"});
+    })();
+    return true;
+  }
+});
+
+async function toggleRelaxationRules() {
+  const originalRules = await chrome.declarativeNetRequest.getDynamicRules();
+  if (originalRules.length) {
+    const removeRuleIds = originalRules.map(rule => rule.id);
+    await chrome.declarativeNetRequest.updateDynamicRules({removeRuleIds});
+  } else {
+    const addRules = await buildRelaxationRules(iframeCspOverrides);
+    await chrome.declarativeNetRequest.updateDynamicRules({addRules});
+  }
+}
+
 chrome.declarativeNetRequest.onRuleMatchedDebug.addListener(info => {
   console.log("onRuleMatchedDebug", info);
 });
