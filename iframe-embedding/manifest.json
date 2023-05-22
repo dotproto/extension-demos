@@ -1,0 +1,19 @@
+{
+  "name": "iframe embedding",
+  "description": "Embeds an iframe that doesn't want to be embedded in the extension popup extension page.",
+  "version": "1.0",
+  "manifest_version": 3,
+  "background":{
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "declarativeNetRequestWithHostAccess",
+    "declarativeNetRequestFeedback"
+  ],
+  "host_permissions": [
+    "*://dotproto-block-embeds.glitch.me/*"
+  ]
+}

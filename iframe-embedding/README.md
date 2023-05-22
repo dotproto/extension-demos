@@ -1,0 +1,1 @@
+This extension demonstrates how developers can load a website in an iframe even if the website tries to use the `X-Frame-Options` and `Content-Security-Policy` headers to limit where it can be embedded.
